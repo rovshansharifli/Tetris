@@ -5,7 +5,8 @@ public:
 	CEngine();
 	~CEngine();
 
-	void drawPlayGround();
+	void start();
+
 private:
 
 	bool* play_ground_matrix;

@@ -3,5 +3,5 @@
 int main() {
 	CEngine Engine;
 
-	Engine.drawPlayGround();
+	Engine.start();
 }
