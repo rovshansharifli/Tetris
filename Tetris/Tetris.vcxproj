@@ -148,6 +148,7 @@
     <ClInclude Include="CEngine.h" />
     <ClInclude Include="CPiece.h" />
     <ClInclude Include="CPlayGround.h" />
+    <ClInclude Include="PointPG.h" />
     <ClInclude Include="Sizes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

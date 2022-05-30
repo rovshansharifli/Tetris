@@ -41,5 +41,8 @@
     <ClInclude Include="Sizes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PointPG.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

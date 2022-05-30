@@ -2,7 +2,9 @@
 #include "CPlayGround.h"
 #include "CPiece.h"
 #include "Sizes.h"
-#include <SFML/Graphics.hpp>
+#include "PointPG.h"
+
+#include <iostream>
 
 CEngine::CEngine()
 {
@@ -26,29 +28,62 @@ void CEngine::start()
 	sf::Sprite my_sprite(my_texture);
 	my_sprite.setTextureRect(sf::IntRect(0, 0, 18, 18));
 
+	CPlayGround playGround;
+
+	// every point of a piece in 2d play ground
+	PointPG * pointPG;
+	
 	CPiece piece;
+	
+	playGround.putPieceOnPG(piece);
 
 	while (window.isOpen()) {
-		sf::Event my_event;
-		while (window.pollEvent(my_event)) 
-		{
-			if (my_event.type == sf::Event::Closed) 
-			{
-				window.close();
-			}
-
-			// put the keys on here to control the pieces
-
-		}
-
-		window.clear(sf::Color::White);
 		
+		checkEvent(window);
+
+		//check move
+		playGround.movePiece(leftRightTurn);
+
+		pointPG = playGround.getPiecePoints();
+
+		leftRightTurn = 0;
+		
+		window.clear(sf::Color::White);
+
 		for (int i = 0; i < 4; i++) {
-			my_sprite.setPosition((piece.getPiecePoints(i) % 2) * 18, (piece.getPiecePoints(i) / 2) * 18);
-			
+			my_sprite.setPosition(pointPG[i].x * 18, pointPG[i].y * 18);
+
 			window.draw(my_sprite);
 		}
 
 		window.display();
+	}
+}
+
+void CEngine::checkEvent(sf::RenderWindow &t_window)
+{
+	sf::Event my_event;
+	while (t_window.pollEvent(my_event))
+	{
+		if (my_event.type == sf::Event::Closed)
+		{
+			t_window.close();
+		}
+
+		if (my_event.type == sf::Event::KeyPressed) {
+
+			if (my_event.key.code == sf::Keyboard::Up) {
+				upPressed = true;
+			}
+			else if (my_event.key.code == sf::Keyboard::Left) {
+				leftRightTurn = -1;
+			}
+			else if (my_event.key.code == sf::Keyboard::Right) {
+				leftRightTurn = 1;
+			}
+			else {
+				// nothing handled here: think about it
+			}
+		}
 	}
 }
