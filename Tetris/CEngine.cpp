@@ -41,13 +41,18 @@ void CEngine::start()
 		
 		checkEvent(window);
 
-		//check move
-		playGround.movePiece(leftRightTurn);
+		if (leftRightTurn != 0) {
+			playGround.movePiece(leftRightTurn);
+			leftRightTurn = 0;
+		}
+
+		if (upPressed) {
+			playGround.rotatePiece();
+			upPressed = false;
+		}
 
 		pointPG = playGround.getPiecePoints();
 
-		leftRightTurn = 0;
-		
 		window.clear(sf::Color::White);
 
 		for (int i = 0; i < 4; i++) {
@@ -82,7 +87,7 @@ void CEngine::checkEvent(sf::RenderWindow &t_window)
 				leftRightTurn = 1;
 			}
 			else {
-				// nothing handled here: think about it
+				// nothing handled here: think about it - but probably not needed
 			}
 		}
 	}

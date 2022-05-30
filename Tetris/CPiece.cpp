@@ -33,8 +33,3 @@ int CPiece::getPiecePoint(int point_number)
     return piece_points[point_number];
 }
 
-int CPiece::getPieceMainPoint()
-{
-    return piece_points[1];
-}
-
