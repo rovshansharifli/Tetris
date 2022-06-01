@@ -55,18 +55,39 @@ void CEngine::start()
 			upPressed = false;
 		}
 
+		if (downPressed) {
+			delay = 0.05;
+			downPressed = false;
+		}
+
 		if (timer > delay) {
 			playGround.slidePiece();
 
 			if (playGround.checkCollision()) {
 				playGround.leavePieceOnPG();
-				playGround.spawnPieceOnPG();
+
+				// check game over
+				if (playGround.playGroundIsFull()) {
+					gameOver = true;
+				}
+
+				if (!gameOver) {
+					playGround.spawnPieceOnPG();
+				}
+				else {
+					std::cout << "Game Over!" << std::endl;
+					break;
+				}
 			}
 
 			timer = 0;
 		}
 
 		CellPG = playGround.getPiecePoints();
+
+		playGround.removeFullLines();
+
+		delay = 0.6;
 
 		window.clear(sf::Color::White);
 
@@ -102,6 +123,9 @@ void CEngine::checkEvent(sf::RenderWindow &t_window)
 			}
 			else if (my_event.key.code == sf::Keyboard::Right) {
 				leftRightTurn = 1;
+			}
+			else if (my_event.key.code == sf::Keyboard::Down) {
+				downPressed = true;
 			}
 			else {
 				// nothing handled here: think about it - but probably not needed

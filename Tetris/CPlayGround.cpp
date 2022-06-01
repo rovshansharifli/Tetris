@@ -79,7 +79,6 @@ bool CPlayGround::checkCollision()
 			m_points[i].x >= pg_sizes::PG_WIDTH || 
 			m_points[i].y >= pg_sizes::PG_HEIGHT) 
 		{
-			std::cout << "true" << std::endl;
 			return true;
 		}
 		//collision with the cells
@@ -107,6 +106,37 @@ void CPlayGround::putFrames(sf::RenderWindow &t_window, sf::Sprite &t_sprite)
 void CPlayGround::leavePieceOnPG()
 {
 	for (int i = 0; i < 4; i++) {
-		m_play_ground[m_previous_points[i].y][m_previous_points[i].x] = 1;
+		m_play_ground[m_previous_points[i].x][m_previous_points[i].y] = 1;
 	}
+}
+
+void CPlayGround::removeFullLines()
+{
+	int k = pg_sizes::PG_HEIGHT - 1;
+
+	for (int i = k; i > 0; i--) {
+		int count = 0;
+		for (int j = 0; j < pg_sizes::PG_WIDTH; j++) {
+			if (m_play_ground[j][i]!=0) {
+				count++;
+			}
+			m_play_ground[j][k] = m_play_ground[j][i];
+		}
+
+		if (count < pg_sizes::PG_WIDTH) {
+			k--;
+		}
+	}
+}
+
+bool CPlayGround::playGroundIsFull()
+{
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 2; j++) {
+			if (m_play_ground[i][j] != 0) {
+				return true;
+			}
+		}
+	}
+	return false;
 }

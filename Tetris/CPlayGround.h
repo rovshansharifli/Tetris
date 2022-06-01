@@ -28,6 +28,10 @@ public:
 
 	void leavePieceOnPG();
 
+	void removeFullLines();
+
+	bool playGroundIsFull();
+
 private:
 
 	int m_play_ground[pg_sizes::PG_WIDTH][pg_sizes::PG_HEIGHT] = { 0 };
