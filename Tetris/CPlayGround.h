@@ -1,7 +1,8 @@
 #pragma once
 #include "Sizes.h"
-#include "PointPG.h"
+#include "Cell.h"
 #include "CPiece.h"
+#include <SFML/Graphics.hpp>
 
 class CPlayGround
 {
@@ -9,19 +10,28 @@ public:
 	CPlayGround();
 	~CPlayGround();
 
-	bool* getPlayGround();
+	int* getPlayGround();
 
-	void putPieceOnPG(CPiece t_piece);
+	void spawnPieceOnPG();
 
-	PointPG* getPiecePoints();
+	Cell* getPiecePoints();
 
 	void movePiece(int direction);
 
 	void rotatePiece();
 
+	void slidePiece();
+
+	bool checkCollision();
+
+	void putFrames(sf::RenderWindow &t_window, sf::Sprite &t_sprite);
+
+	void leavePieceOnPG();
+
 private:
 
-	bool m_play_ground[pg_sizes::PG_WIDTH][pg_sizes::PG_HEIGHT] = { false };
-	PointPG m_points[4];
+	int m_play_ground[pg_sizes::PG_WIDTH][pg_sizes::PG_HEIGHT] = { 0 };
+	Cell m_points[4];
+	Cell m_previous_points[4];
 };
 

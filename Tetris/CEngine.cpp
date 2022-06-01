@@ -2,15 +2,14 @@
 #include "CPlayGround.h"
 #include "CPiece.h"
 #include "Sizes.h"
-#include "PointPG.h"
+#include "Cell.h"
+#include <time.h>
 
 #include <iostream>
 
 CEngine::CEngine()
 {
-	CPlayGround myPlayground;
 
-	play_ground_matrix = myPlayground.getPlayGround();
 }
 
 CEngine::~CEngine()
@@ -28,16 +27,21 @@ void CEngine::start()
 	sf::Sprite my_sprite(my_texture);
 	my_sprite.setTextureRect(sf::IntRect(0, 0, 18, 18));
 
+	sf::Clock clock;
+
 	CPlayGround playGround;
 
+	//the first piece of the game
+	playGround.spawnPieceOnPG();
+
 	// every point of a piece in 2d play ground
-	PointPG * pointPG;
-	
-	CPiece piece;
-	
-	playGround.putPieceOnPG(piece);
+	Cell * CellPG;
 
 	while (window.isOpen()) {
+
+		float time = clock.getElapsedTime().asSeconds();
+		clock.restart();
+		timer += time;
 		
 		checkEvent(window);
 
@@ -45,18 +49,31 @@ void CEngine::start()
 			playGround.movePiece(leftRightTurn);
 			leftRightTurn = 0;
 		}
-
+		
 		if (upPressed) {
 			playGround.rotatePiece();
 			upPressed = false;
 		}
 
-		pointPG = playGround.getPiecePoints();
+		if (timer > delay) {
+			playGround.slidePiece();
+
+			if (playGround.checkCollision()) {
+				playGround.leavePieceOnPG();
+				playGround.spawnPieceOnPG();
+			}
+
+			timer = 0;
+		}
+
+		CellPG = playGround.getPiecePoints();
 
 		window.clear(sf::Color::White);
 
+		playGround.putFrames(window, my_sprite);
+
 		for (int i = 0; i < 4; i++) {
-			my_sprite.setPosition(pointPG[i].x * 18, pointPG[i].y * 18);
+			my_sprite.setPosition(CellPG[i].x * 18, CellPG[i].y * 18);
 
 			window.draw(my_sprite);
 		}

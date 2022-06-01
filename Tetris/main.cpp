@@ -2,6 +2,5 @@
 
 int main() {
 	CEngine Engine;
-
 	Engine.start();
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-struct PointPG 
+struct Cell 
 {
 	int x;
 	int y;
