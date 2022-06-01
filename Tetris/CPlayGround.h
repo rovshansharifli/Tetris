@@ -1,7 +1,6 @@
 #pragma once
 #include "Sizes.h"
 #include "Cell.h"
-#include "CPiece.h"
 #include <SFML/Graphics.hpp>
 
 class CPlayGround
@@ -28,7 +27,7 @@ public:
 
 	void leavePieceOnPG();
 
-	void removeFullLines();
+	void removeFullLines(int& t_score, float& t_delay);
 
 	bool playGroundIsFull();
 

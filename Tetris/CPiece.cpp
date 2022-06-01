@@ -4,6 +4,7 @@
 
 CPiece::CPiece()
 {
+    // type of pieces
     int pieces[7][4] =
     {
         1, 3, 5, 7, 
@@ -15,11 +16,13 @@ CPiece::CPiece()
         2, 3, 4, 5, 
     };
 
+    // making pieces spawn randomly
     srand(time(0));
     int piece_type = rand() % 7;
 
+    // puting pieces into an array
     for (int i = 0; i < 4; i++) {
-        piece_points[i] = pieces[piece_type][i];
+        m_piece_points[i] = pieces[piece_type][i];
     }
 }
 
@@ -30,6 +33,6 @@ CPiece::~CPiece()
 
 int CPiece::getPiecePoint(int point_number)
 {
-    return piece_points[point_number];
+    return m_piece_points[point_number];
 }
 

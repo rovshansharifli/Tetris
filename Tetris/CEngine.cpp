@@ -56,7 +56,7 @@ void CEngine::start()
 		}
 
 		if (downPressed) {
-			delay = 0.05;
+			delay = default_delay/10;
 			downPressed = false;
 		}
 
@@ -69,14 +69,14 @@ void CEngine::start()
 				// check game over
 				if (playGround.playGroundIsFull()) {
 					gameOver = true;
-				}
 
-				if (!gameOver) {
-					playGround.spawnPieceOnPG();
+					std::cout << "Game Over!" << std::endl;
+
+					break;
 				}
 				else {
-					std::cout << "Game Over!" << std::endl;
-					break;
+					playGround.spawnPieceOnPG();
+
 				}
 			}
 
@@ -85,9 +85,9 @@ void CEngine::start()
 
 		CellPG = playGround.getPiecePoints();
 
-		playGround.removeFullLines();
+		playGround.removeFullLines(score, default_delay);
 
-		delay = 0.6;
+		delay = default_delay;
 
 		window.clear(sf::Color::White);
 
@@ -101,6 +101,8 @@ void CEngine::start()
 
 		window.display();
 	}
+
+	std::cout << "Score: " << score << std::endl;
 }
 
 void CEngine::checkEvent(sf::RenderWindow &t_window)
@@ -126,9 +128,6 @@ void CEngine::checkEvent(sf::RenderWindow &t_window)
 			}
 			else if (my_event.key.code == sf::Keyboard::Down) {
 				downPressed = true;
-			}
-			else {
-				// nothing handled here: think about it - but probably not needed
 			}
 		}
 	}

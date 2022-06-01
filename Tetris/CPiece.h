@@ -1,5 +1,4 @@
 #pragma once
-
 class CPiece
 {
 public:
@@ -9,5 +8,5 @@ public:
 	int getPiecePoint(int point_number);
 	
 private:
-	int piece_points[4];
+	int m_piece_points[4];
 };

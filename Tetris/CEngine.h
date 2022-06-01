@@ -13,9 +13,6 @@ private:
 	//private functions
 	void checkEvent(sf::RenderWindow &t_window);
 
-	/*variables*/
-	int* play_ground_matrix;
-
 	//this will check the rotation
 	bool upPressed = false;
 
@@ -27,11 +24,15 @@ private:
 
 	//variables to slide the pieces
 	float timer = 0;
+
 	// speed
+	float default_delay = 0.6;
 	float delay = 0.6;
 
 	//game over - cannot spawn a new piece
 	bool gameOver = false;
+
+	int score = 0;
 
 };
 

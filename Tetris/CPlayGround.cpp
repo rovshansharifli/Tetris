@@ -1,5 +1,5 @@
 #include "CPlayGround.h"
-#include <iostream>
+#include "CPiece.h"
 
 CPlayGround::CPlayGround()
 {
@@ -110,21 +110,26 @@ void CPlayGround::leavePieceOnPG()
 	}
 }
 
-void CPlayGround::removeFullLines()
+void CPlayGround::removeFullLines(int& t_score, float& t_delay)
 {
-	int k = pg_sizes::PG_HEIGHT - 1;
+	int vertIterator = pg_sizes::PG_HEIGHT - 1;
 
-	for (int i = k; i > 0; i--) {
+	for (int i = vertIterator; i > 0; i--) {
 		int count = 0;
 		for (int j = 0; j < pg_sizes::PG_WIDTH; j++) {
 			if (m_play_ground[j][i]!=0) {
 				count++;
 			}
-			m_play_ground[j][k] = m_play_ground[j][i];
+			m_play_ground[j][vertIterator] = m_play_ground[j][i];
 		}
 
 		if (count < pg_sizes::PG_WIDTH) {
-			k--;
+			vertIterator--;
+		}
+		//one line removed
+		else {
+			t_score++;
+			t_delay -= 0.01;
 		}
 	}
 }
